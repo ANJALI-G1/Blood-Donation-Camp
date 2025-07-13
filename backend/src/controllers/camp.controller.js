@@ -7,10 +7,10 @@ export const createCamp=async(req,res)=>{
     try {
         const camp=new Camp(req.body);
         await camp.save();
-        res.status(201).json(camp);
+        res.status(201).json({success:true,data:camp});
     } catch (error) {
         console.error("Error in create camp controller",error);
-        res.status(400).json({error:error.message});
+        res.status(400).json({success:false,error:error.message});
     }
 };
 
@@ -42,20 +42,38 @@ export const getNearbyCamps=async(req,res)=>{
                     $geometry:{
                         type:"Point",
                         coordinates,
-                        $maxDistance:2000
+                        $maxDistance:50000
                     }
                 }
             },
-        endDate:{$lte:currDate} //for upcoming camps
-        });
+        endDate:{$gte:currDate} //for upcoming camps
+        }).sort({startDate:1});
 
         res.json({
-            location:place|| "Custom coordinates",
-            coordinates,
-            camps
+            success:true,
+            data:camps||[]
         });
     } catch (error) {
         console.error("Error in getNearbyCamps controller");
-        res.status(500).json({error:error.message});
+        res.status(500).json({success:false,error:error.message});
+    }
+};
+
+
+export const getAllCamps=async(req,res)=>{
+    const currDate=new Date();
+    try {
+        const camps=await Camp.find({
+            endDate:{$gte:currDate}
+        }).sort({startDate:1});
+        res.json({
+            success:true
+            ,data:camps||[]
+        });
+    } catch (error) {
+        console.error("Error in getAllCamps router");
+        res.status(500).json({
+            success:false,
+            error:error.message});
     }
 };
