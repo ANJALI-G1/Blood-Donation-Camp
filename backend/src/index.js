@@ -13,7 +13,11 @@ const PORT=process.env.PORT||5000;
 
 
 //middleware
-app.use(cors());
+app.use(cors({
+    origin:"http://localhost:5173",
+    methods:['GET','POST','DELETE','PUT'],
+    credentials:true
+}));
 app.use(express.json());
 
 
