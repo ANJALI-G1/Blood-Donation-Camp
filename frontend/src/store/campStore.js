@@ -66,6 +66,22 @@ const useCampStore = create((set) => ({
         }
     },
 
+    getSearchedCamps: async ({ keyword, location, date }) => {
+        set({ loading: true, error: null });
+        try {
+            const res = await axios.get('http://localhost:5000/api/camps/search', {
+                params: { keyword, location, date }
+            });
+            set({ camps: res.data.data || [], loading: false });
+        } catch (error) {
+            console.error("error in searchCamps of campStore", error);
+            set({
+                error: error.response?.data?.error || "Failed to search camps",
+                loading: false
+            });
+        }
+    }
+
 }));
 
 export default useCampStore;

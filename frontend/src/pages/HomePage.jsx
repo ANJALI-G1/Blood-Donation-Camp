@@ -1,58 +1,97 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useCampStore from '../store/campStore';
 
 export default function HomePage() {
-  const { camps, loading, error, fetchAllCamps } = useCampStore();
+  const { camps, loading, error, fetchAllCamps, getSearchedCamps } = useCampStore();
 
-  // Fetch camps on component mount
+  const [searchType, setSearchType] = useState("keyword");
+  const [searchValue, setSearchValue] = useState("");
+  const [dateValue, setDateValue] = useState("");
+
   useEffect(() => {
     fetchAllCamps();
   }, [fetchAllCamps]);
 
-  const handleSearch=async (e)=>{
+  const handleSearch = async (e) => {
     e.preventDefault();
-    
-  }
+    const params = {};
 
-  if (loading) return <div className="text-center py-8">Loading camps...</div>;
-  if (error) return <div className="text-red-500 text-center py-8">Error: {error}</div>;
+    if (searchType === "keyword" && searchValue.trim()) {
+      params.keyword = searchValue.trim();
+    }
+    if (searchType === "location" && searchValue.trim()) {
+      params.location = searchValue.trim();
+    }
+    if (searchType === "date" && dateValue) {
+      params.date = dateValue;
+    }
+
+    if (Object.keys(params).length > 0) {
+      await getSearchedCamps(params);
+    }
+  };
+
+  const handleReset = async () => {
+    setSearchValue("");
+    setDateValue("");
+    setSearchType("keyword");
+    await fetchAllCamps();
+  };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-center mb-8">Blood Donation Camps</h1>
-      
-      {camps.length === 0 ? (
-        <p className="text-center text-gray-500">No camps found</p>
-      ) : (
-        <div className="space-y-6">
-          {camps.map((camp) => (
-            <div key={camp._id} className="bg-white p-6 rounded-lg shadow border border-gray-200">
-              <h2 className="text-xl font-semibold">{camp.name}</h2>
-              <div className="mt-2 space-y-1 text-gray-600">
-                <p><span className="font-medium">Organization:</span> {camp.organization}</p>
-                <p><span className="font-medium">Date:</span> {new Date(camp.startDate).toLocaleDateString()}</p>
-                <p><span className="font-medium">Time:</span> {new Date(camp.startDate).toLocaleTimeString()}</p>
-                <p><span className="font-medium">Location:</span> {camp.location.coordinates.join(', ')}</p>
-                <p><span className="font-medium">Contact:</span> {camp.contact}</p>
-              </div>
-              <a
-                href={camp.registrationLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-block bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded transition"
-              >
-                Register Now
-              </a>
-            </div>
-          ))}
-        </div>
-      )}
+    <div>
+      <h1>Blood Donation Camps</h1>
 
+      {/* Search Section */}
       <form onSubmit={handleSearch}>
-       
-        <input type='text'></input>
-        <button type='submit'>Search</button>
+        <label>
+          Search by:
+          <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+            <option value="keyword">Name/Organization</option>
+            <option value="location">Location</option>
+            <option value="date">Date</option>
+          </select>
+        </label>
+
+        {searchType === "date" ? (
+          <input
+            type="date"
+            value={dateValue}
+            onChange={(e) => setDateValue(e.target.value)}
+          />
+        ) : (
+          <input
+            type="text"
+            placeholder={`Enter ${searchType}`}
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+        )}
+
+        <button type="submit">Search</button>
+        <button type="button" onClick={handleReset}>Reset</button>
       </form>
+
+      {/* Loading & Error */}
+      {loading && <p>Loading camps...</p>}
+      {error && <p style={{ color: "red" }}>Error: {error}</p>}
+
+      {/* Camps List */}
+      {(!loading && camps.length === 0) ? (
+        <p>No camps found</p>
+      ) : (
+        camps.map((camp) => (
+          <div key={camp._id} style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '10px' }}>
+            <h2>{camp.name}</h2>
+            <p><strong>Organization:</strong> {camp.organization}</p>
+            <p><strong>Date:</strong> {new Date(camp.startDate).toLocaleDateString()}</p>
+            <p><strong>Time:</strong> {new Date(camp.startDate).toLocaleTimeString()}</p>
+            <p><strong>Location (Coordinates):</strong> {camp.location.coordinates.join(', ')}</p>
+            <p><strong>Contact:</strong> {camp.contact}</p>
+            <a href={camp.registrationLink} target="_blank" rel="noreferrer">Register</a>
+          </div>
+        ))
+      )}
     </div>
   );
 }
