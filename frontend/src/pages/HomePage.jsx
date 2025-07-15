@@ -17,7 +17,7 @@ const HomePage = () => {
                 <h2 className="text-5xl font-extrabold mb-2 text-center drop-shadow-md stroke-1 [text-shadow:_0_0_2px_red] ">Find Blood Donation Camps Near You</h2>
                 <p className="mb-6 text-center text-lg drop-shadow-sm">Connecting willing donors with verified blood donation events across India.</p>
                 <Link
-                    to="/camps"
+                    to="/search"
                     className=" bg-white text-red-600 font-semibold py-2 px-6 rounded hover:bg-gray-200 transition "
                 >
                     Search Camps
