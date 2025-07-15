@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import useCampStore from '../store/campStore';
 import Card from '../components/Card';
 
-const HomePage = () => {
+const NewPage = () => {
     const { camps, fetchAllCamps } = useCampStore();
     useEffect(() => {
         fetchAllCamps();
@@ -113,4 +113,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default NewPage;
