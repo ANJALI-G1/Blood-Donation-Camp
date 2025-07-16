@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import axios from 'axios'
 import Camp from "../model/camp.model.js";
+import cloudinary from "../../utils/cloudinary.js";
 
 //to add a new camp
 export const createCamp = async (req, res) => {
@@ -13,6 +14,36 @@ export const createCamp = async (req, res) => {
         res.status(400).json({ success: false, error: error.message });
     }
 };
+
+
+//trying to add camp from frontend
+
+export const addCampFront = async (req, res) => {
+    try {
+        const imageFile = req.files.image;
+        const imageUrl = await cloudinary.v2.uploader.upload(imageFile.tempFilePath);
+
+        const camp = new Camp({
+            name: req.body.name,
+            organization: req.body.organization,
+            startDate: req.body.startDate,
+            endDate: req.body.endDate,
+            registrationLink: req.body.registrationLink,
+            location: {
+                type: "Point",
+                coordinates: [parseFloat(req.body.longitude), parseFloat(req.body.latitude)],
+            },
+            imageUrl: result.secure_url,
+        });
+
+        await camp.save();
+        res.status(201).json(camp);
+    } catch (error) {
+        console.error("error in addCampFront controller")
+        res.status(500).json({ error: "Failed to create camp" });
+
+    }
+}
 
 //using openCage to get near by location
 
@@ -83,7 +114,7 @@ export const searchCamps = async (req, res) => {
     const { keyword, location, date } = req.query;
 
     let filter = {};
-    let coordinates=[];
+    let coordinates = [];
     try {
         if (keyword) {
             const words = keyword.split(" ").filter(Boolean);
@@ -98,8 +129,8 @@ export const searchCamps = async (req, res) => {
 
         if (location) {
             const geoRes = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(location)}&key=${process.env.OPENCAGE_API_KEY}`);
-            
-            
+
+
 
             if (geoRes.data.results.length > 0) {
                 coordinates = [
