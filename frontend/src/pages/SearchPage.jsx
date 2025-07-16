@@ -38,7 +38,12 @@ const SearchPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-4">
+    <>
+   <div className="fixed top-0 left-0 w-full h-full z-[-2] bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]"></div>
+
+
+    
+    <div className="min-h-screen py-10 px-4">
       <h1 className="text-3xl font-bold text-center text-red-600 mb-6">
         Search Blood Donation Camps
       </h1>
@@ -96,6 +101,7 @@ const SearchPage = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

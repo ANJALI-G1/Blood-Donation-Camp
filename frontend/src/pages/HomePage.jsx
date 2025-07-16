@@ -9,6 +9,11 @@ const HomePage = () => {
         fetchAllCamps();
     }, [fetchAllCamps]);
     return (
+        <>
+           <div className="fixed top-0 left-0 w-full h-full z-[-2] bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]"></div>
+
+
+        
         <div className="min-h-screen flex flex-col">
 
 
@@ -25,9 +30,9 @@ const HomePage = () => {
             </section>
 
             {/* How it Works - Modern Cards */}
-            <section className="py-20 px-4  bg-gray-50">
+            <section className="py-20 px-4  ">
                 <div className="max-w-7xl mx-auto">
-                    <h3 className="text-3xl font-bold mb-4 text-center">How It Works</h3>
+                    <h3 className="text-3xl font-bold mb-4 text-center text-red-500">How It Works</h3>
                     <p className="max-w-2xl mx-auto text-gray-600 text-center mb-12">
                         Join the life-saving community in just a few simple steps
                     </p>
@@ -67,11 +72,14 @@ const HomePage = () => {
             </section>
 
             {/* Upcoming Camps */}
-            <section className="py-20 px-4 bg-white">
+            
+            <section className="py-20 px-4 ">
+                
+
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col md:flex-row justify-between items-center mb-12">
                         <div>
-                            <h3 className="text-3xl font-bold">Upcoming Blood Donation Camps</h3>
+                            <h3 className="text-3xl font-bold text-red-500">Upcoming Blood Donation Camps</h3>
                             <p className="text-gray-600 mt-2">Join these verified camps near you</p>
                         </div>
                         <Link
@@ -105,11 +113,9 @@ const HomePage = () => {
             </section>
 
 
-            {/* Footer */}
-            <footer className="bg-gray-100 text-center py-4 mt-auto text-gray-600">
-                © 2025 DonarBridge. All rights reserved.
-            </footer>
+           
         </div>
+        </>
     );
 };
 
