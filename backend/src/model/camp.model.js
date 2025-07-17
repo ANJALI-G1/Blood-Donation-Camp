@@ -43,6 +43,10 @@ const campSchema = new mongoose.Schema({
     registrationLink: {
         type: String,
         required: true,
+    },
+    imageUrl:{
+        type:String,
+        default:"",
     }
 });
 

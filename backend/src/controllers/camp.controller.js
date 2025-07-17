@@ -16,34 +16,6 @@ export const createCamp = async (req, res) => {
 };
 
 
-//trying to add camp from frontend
-
-export const addCampFront = async (req, res) => {
-    try {
-        const imageFile = req.files.image;
-        const imageUrl = await cloudinary.v2.uploader.upload(imageFile.tempFilePath);
-
-        const camp = new Camp({
-            name: req.body.name,
-            organization: req.body.organization,
-            startDate: req.body.startDate,
-            endDate: req.body.endDate,
-            registrationLink: req.body.registrationLink,
-            location: {
-                type: "Point",
-                coordinates: [parseFloat(req.body.longitude), parseFloat(req.body.latitude)],
-            },
-            imageUrl: result.secure_url,
-        });
-
-        await camp.save();
-        res.status(201).json(camp);
-    } catch (error) {
-        console.error("error in addCampFront controller")
-        res.status(500).json({ error: "Failed to create camp" });
-
-    }
-}
 
 //using openCage to get near by location
 

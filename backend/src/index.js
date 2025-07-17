@@ -4,6 +4,8 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import { connectDB } from './lib/db.js'
 import campRoutes from './routes/camp.route.js'
+import adminRoutes from './routes/admin.route.js'
+import fileUpload from 'express-fileupload'
 dotenv.config();
 
 const app=express();
@@ -19,10 +21,12 @@ app.use(cors({
     credentials:true
 }));
 app.use(express.json());
+app.use(fileUpload({useTempFiles:true}));
 
 
 //routes
 app.use('/api/camps',campRoutes);
+app.use('/api/admin',adminRoutes);
 
 
 //test

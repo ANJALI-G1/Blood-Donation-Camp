@@ -11,7 +11,7 @@ const Card = ({ camp }) => {
     <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col transition hover:shadow-lg w-full max-w-sm border border-red-100">
       {/* Top Banner Image */}
       <img
-        src={camp.banner || '/blood-camp-banner.jpg'}
+        src={camp.imageUrl || '/blood-camp-banner.jpg'}
         alt={camp.name}
         className="w-full h-40 object-cover"
       />

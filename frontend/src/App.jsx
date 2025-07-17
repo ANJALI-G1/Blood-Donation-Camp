@@ -5,6 +5,7 @@ import { Navbar } from './components/Navbar';
 import SearchPage from './pages/SearchPage';
 import ContactUs from './pages/ContactUs';
 import Footer from './components/Footer';
+import AdminPage from './pages/AdminPage';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/new" element={<NewPage />} />
           <Route path="/camps" element={<SearchPage />} />
           <Route path="/contact" element={<ContactUs />} />
+          <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </main>
 

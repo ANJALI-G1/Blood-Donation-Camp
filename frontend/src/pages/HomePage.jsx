@@ -10,7 +10,8 @@ const HomePage = () => {
     }, [fetchAllCamps]);
     return (
         <>
-           <div className="fixed top-0 left-0 w-full h-full z-[-2] bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]"></div>
+           <div className="fixed top-0 left-0 w-full h-full z-[-2] bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,100%,90%,0)_0,rgba(248,113,113,0.3)_100%)]"></div>
+
 
 
         

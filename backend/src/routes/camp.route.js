@@ -8,5 +8,4 @@ router.get('/allcamps',getAllCamps);
 router.get('/search',searchCamps)
 
 
-
 export default router;
