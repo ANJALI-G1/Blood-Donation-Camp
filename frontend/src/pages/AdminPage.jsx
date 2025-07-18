@@ -1,8 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import { useAdminStore } from "../store/adminStore.js";
 import { useEffect } from "react";
-
+import {useAdminStore} from '../store/adminStore.js'
 
 const AdminPage = () => {
   const {addCampAdmin,camps,fetchAllCampsAdmin}=useAdminStore();
@@ -17,6 +16,8 @@ const AdminPage = () => {
     longitude: "",
   });
   const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(()=>{
     fetchAllCampsAdmin();
@@ -26,33 +27,64 @@ const AdminPage = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
+   const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Validate image
+      if (!file.type.match('image.*')) {
+        alert('Please select an image file');
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Image must be smaller than 5MB');
+        return;
+      }
+
+      setImage(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
   };
 
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-  const data = new FormData();
-  for (let key in formData) {
-    data.append(key, formData[key]);
-  }
-  data.append("image", image);
+   const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-  try {
-    const res = await addCampAdmin(data);
+    const data = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      data.append(key, value);
+    });
+    if (image) data.append("image", image);
 
-    if (res?.data) {
-      alert("Camp added successfully!");
-      document.getElementById("my_modal_1").close();
-    } else {
-      console.warn("Camp added but response missing data:", res);
-      alert("Camp added, but response was unexpected.");
+    try {
+      const result = await addCampAdmin(data);
+      
+      if (result?.success) {
+        alert(result.message);
+        // Reset form
+        setFormData({
+          name: "",
+          organization: "",
+          contact: "",
+          startDate: "",
+          endDate: "",
+          registrationLink: "",
+          latitude: "",
+          longitude: "",
+        });
+        setImage(null);
+        setImagePreview(null);
+        document.getElementById("my_modal_1").close();
+        fetchAllCampsAdmin(); // Refresh list
+      } else {
+        alert(result?.message || "Operation completed but with unexpected response");
+      }
+    } catch (err) {
+      console.error("Submission error:", err);
+      alert(err.message || "Failed to add camp");
+    } finally {
+      setIsSubmitting(false);
     }
-  } catch (err) {
-    console.error("Error submitting form:", err);
-    alert("Error adding camp");
-  }
-};
+  };
 
 
   return (
@@ -127,8 +159,7 @@ const AdminPage = () => {
           </form>
         </div>
       </dialog>
-      //{console.log(camps)}
-
+  
 
 
 
