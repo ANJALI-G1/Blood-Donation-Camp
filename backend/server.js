@@ -9,7 +9,10 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3500'],
+  origin: ['http://localhost:3000', 'http://localhost:3500',
+    'https://blood-camp.vercel.app',
+    'https://blood-admin.vercel.app'
+  ],
   credentials: true
 }));
 app.use(express.json());

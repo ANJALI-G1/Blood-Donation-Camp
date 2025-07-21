@@ -9,9 +9,9 @@ const useCampStore=create((set)=>({
     fetchCamps:async()=>{
         set({loading:true,error:null});
         try {
-            const res=await axios.get('http://localhost:5000/api/user/camps/getCamps');
+            const res=await axios.get('https://blood-donation-camp.onrender.com/api/user/camps/getCamps');
 
-            console.log('Api ressponse of fetchCamps',res.data);
+            console.log('Api response of fetchCamps',res.data);
 
             set({loading:false,camps:res.data.data || res.data });
 
@@ -27,7 +27,7 @@ const useCampStore=create((set)=>({
     campSearch:async({keyword,address,startDate})=>{
         set({loading:true,error:null});
         try {
-            const res=await axios.get('http://localhost:5000/api/user/camps/search',{
+            const res=await axios.get('https://blood-donation-camp.onrender.com/api/user/camps/search',{
                 params:{keyword,address,startDate}
             });
             set({loading:false,camps:res.data.data || res.data });
