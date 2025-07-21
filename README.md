@@ -45,9 +45,7 @@ blood-camps/
 │ ├── lib/
 │ └── server.js
 
-yaml
-Copy
-Edit
+
 
 ---
 
