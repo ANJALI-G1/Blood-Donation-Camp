@@ -8,13 +8,20 @@ import campUserRoutes from './routes/userCamp.route.js'
 dotenv.config();
 const app = express();
 
+
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3500',
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:3500',
+    'https://blood-donation-camp.vercel.app',
     'https://blood-donation-camp-899zw9j5e-anjali-guptas-projects-8272f35d.vercel.app',
+    'https://blood-donation-camp-git-main-anjali-guptas-projects-8272f35d.vercel.app',
+    'https://blood-donation-camp-six.vercel.app',
     'https://blood-admin.vercel.app'
   ],
   credentials: true
 }));
+
 app.use(express.json());
 
 connectDB();
