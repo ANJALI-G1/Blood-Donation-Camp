@@ -10,7 +10,7 @@ const app = express();
 
 app.use(cors({
   origin: ['http://localhost:3000', 'http://localhost:3500',
-    'https://blood-camp.vercel.app',
+    'https://blood-donation-camp-899zw9j5e-anjali-guptas-projects-8272f35d.vercel.app',
     'https://blood-admin.vercel.app'
   ],
   credentials: true
