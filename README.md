@@ -117,13 +117,4 @@ MongoDB Atlas used for persistent storage
 CORS enabled for Vercel URLs
 
 
-📄 License
-This project is licensed for educational and personal use only.
 
-yaml
-Copy
-Edit
-
----
-
-Let me know if you want to include screenshots, GIFs, or API route documentation!
