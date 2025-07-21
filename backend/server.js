@@ -17,7 +17,8 @@ app.use(cors({
     'https://blood-donation-camp-899zw9j5e-anjali-guptas-projects-8272f35d.vercel.app',
     'https://blood-donation-camp-git-main-anjali-guptas-projects-8272f35d.vercel.app',
     'https://blood-donation-camp-six.vercel.app',
-    'https://blood-admin.vercel.app'
+    'https://blood-admin.vercel.app',
+    'https://blood-donation-camp-kves.vercel.app'
   ],
   credentials: true
 }));
