@@ -1,0 +1,57 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+    box-shadow: 0 0 0 rgba(255, 0, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    box-shadow: 0 8px 30px rgba(255, 0, 0, 0.3);
+  }
+}
+.animate-fadeUp {
+  animation: fadeUp 0.6s ease-out forwards;
+}
+
+
+@keyframes pulseRaise {
+  0%, 100% {
+    transform: translateY(0);
+    box-shadow: 0 0 0 rgba(255, 0, 0, 0);
+  }
+  50% {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(255, 0, 0, 0.4);
+  }
+}
+
+.animate-raise-1 {
+  animation: pulseRaise 3s infinite;
+  animation-delay: 0s;
+}
+.animate-raise-2 {
+  animation: pulseRaise 3s infinite;
+  animation-delay: 1s;
+}
+.animate-raise-3 {
+  animation: pulseRaise 3s infinite;
+  animation-delay: 2s;
+}
+
+
+.glow-text-red {
+  animation: redTextGlow 2s ease-in-out infinite;
+}
+
+@keyframes redTextGlow {
+  0%, 100% {
+    text-shadow: 0 0 0 rgba(255, 0, 0, 0);
+  }
+  50% {
+    text-shadow: 0 0 8px rgba(255, 0, 0, 0.7), 0 0 16px rgba(255, 0, 0, 0.5);
+  }
+}
