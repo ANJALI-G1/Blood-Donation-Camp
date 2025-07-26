@@ -1,8 +1,5 @@
-📄 README_BloodCampApp.md content:
 
-markdown
-Copy
-Edit
+
 # 🩸 Blood Donation Camp Finder
 
 A full-stack web application built using the **MERN stack** to help users find and register for nearby blood donation camps.  
@@ -10,8 +7,8 @@ Admins can manage camp listings, and users can search, filter, and view upcoming
 
 ## 🌐 Live Links
 
-- **Frontend (User App)**: [https://blood-donation-camp-kves.vercel.app](https://blood-donation-camp-kves.vercel.app)
-- **Admin Panel**: [https://blood-admin.vercel.app](https://blood-admin.vercel.app)
+- **Frontend (User App)**: [https://blood-donation-camp-kves.vercel.app](https://blood-donation-camp-six.vercel.app)
+- **Admin Panel**: [https://blood-admin.vercel.app](https://blood-donation-camp-kves.vercel.app)
 - **Backend API**: [https://blood-donation-camp.onrender.com](https://blood-donation-camp.onrender.com)
 
 ---
@@ -70,49 +67,6 @@ blood-camps/
 
 ---
 
-## 🚀 How to Run Locally
-
-### Prerequisites
-- Node.js & npm
-- MongoDB
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/ANJALI-G1/blood-camps.git
-cd blood-camps
-2. Setup Backend
-bash
-Copy
-Edit
-cd server
-npm install
-# Create a .env file with Mongo URI and PORT
-npm run dev
-3. Setup Frontend & Admin
-bash
-Copy
-Edit
-cd ../frontend
-npm install
-npm start
-
-cd ../admin
-npm install
-npm start
-🌍 Deployment
-Frontend & Admin
-Hosted on Vercel
-
-Easy Git integration
-
-No .env file needed if API base URL is hardcoded
-
-Backend
-Hosted on Render
-
-MongoDB Atlas used for persistent storage
-
-CORS enabled for Vercel URLs
 
 
 
